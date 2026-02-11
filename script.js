@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('loader');
     const imageFolder = 'images/';
     const maxConsecutiveErrors = 3; // Stop after 3 missing files
-    
+
     let imageIndex = 1;
     let consecutiveErrors = 0;
     let images = [];
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function finishLoading() {
         isLoading = false;
         loader.style.display = 'none';
-        
+
         if (images.length === 0) {
             grid.innerHTML = '<p style="text-align:center; padding:2rem;">No images found in /images folder.</p>';
             return;
@@ -75,23 +75,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('close-btn');
+
+    // Lightbox Logic
+    function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+        lightboxImg.src = ''; // Clear source
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightbox(); // Close when clicking outside image
+        }
+    });
+
     function renderGrid() {
         const fragment = document.createDocumentFragment();
 
         images.forEach(imgObj => {
             const item = document.createElement('div');
             item.className = 'grid-item';
-            
+
             const img = imgObj.element;
             img.setAttribute('loading', 'lazy'); // Native lazy loading
             img.alt = `Portfolio Image`;
-            
+
             // Fade in effect
             img.onload = () => img.classList.add('loaded');
             // If already cached/loaded (which it is from our fetch)
             if (img.complete) {
                 img.classList.add('loaded');
             }
+
+            // Add click listener for lightbox
+            img.addEventListener('click', () => {
+                openLightbox(img.src);
+            });
 
             item.appendChild(img);
             fragment.appendChild(item);

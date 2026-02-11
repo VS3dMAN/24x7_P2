@@ -1,12 +1,15 @@
 /* Global Reset & Base Styles */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 :root {
-    --bg-color: #121212; /* Dark, premium background */
+    --bg-color: #121212;
+    /* Dark, premium background */
     --text-color: #e0e0e0;
     --accent-color: #ffffff;
     --grid-gap: 15px;
@@ -19,18 +22,19 @@ body {
     color: var(--text-color);
     font-family: var(--font-primary);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
 }
 
 /* Header Styles */
 .site-header {
     padding: 2rem 5%;
-    background: linear-gradient(to bottom, #121212 0%, rgba(18,18,18,0.9) 100%);
+    background: linear-gradient(to bottom, #121212 0%, rgba(18, 18, 18, 0.9) 100%);
     position: sticky;
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .header-content {
@@ -71,29 +75,35 @@ main {
 
 /* Grid Items */
 .grid-item {
-    break-inside: avoid; /* Prevent images from being split across columns */
+    break-inside: avoid;
+    /* Prevent images from being split across columns */
     margin-bottom: var(--grid-gap);
     border-radius: var(--border-radius);
     overflow: hidden;
     position: relative;
-    background-color: #1e1e1e; /* Placeholder color while loading */
-    border: 1px solid rgba(255,255,255,0.1);
+    background-color: #1e1e1e;
+    /* Placeholder color while loading */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer; /* Suggests interactivity */
+    cursor: pointer;
+    /* Suggests interactivity */
 }
 
 .grid-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
     z-index: 2;
 }
 
 .grid-item img {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Remove bottom whitespace */
-    opacity: 0; /* Hidden initially for fade-in */
+    height: auto;
+    /* Maintain aspect ratio */
+    display: block;
+    /* Remove bottom whitespace */
+    opacity: 0;
+    /* Hidden initially for fade-in */
     transition: opacity 0.5s ease;
 }
 
@@ -107,7 +117,8 @@ main {
     padding: 2rem;
     opacity: 0.5;
     font-size: 0.9rem;
-    display: none; /* Hidden by default, script can toggle if needed */
+    display: none;
+    /* Hidden by default, script can toggle if needed */
 }
 
 /* Responsiveness */
@@ -124,6 +135,7 @@ main {
     .masonry-grid {
         column-count: 5;
     }
+
     .header-content {
         align-items: flex-start;
         text-align: left;
@@ -135,8 +147,10 @@ main {
     .masonry-grid {
         column-count: 3;
     }
+
     .header-content {
-        align-items: flex-start; /* Still keep left align for tablet usually better, user said center mobile */
+        align-items: flex-start;
+        /* Still keep left align for tablet usually better, user said center mobile */
     }
 }
 
@@ -144,9 +158,10 @@ main {
 @media (max-width: 599px) {
     .masonry-grid {
         column-count: 2;
-        column-gap: 10px; /* Slightly smaller gap for mobile */
+        column-gap: 10px;
+        /* Slightly smaller gap for mobile */
     }
-    
+
     .grid-item {
         margin-bottom: 10px;
         border-radius: 6px;
@@ -164,8 +179,47 @@ main {
     .brand-name {
         font-size: 1.5rem;
     }
-    
+
     .tagline {
         font-size: 0.9rem;
     }
+}
+
+/* Lightbox Styles */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: none;
+    /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox-img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    z-index: 1001;
+}
+
+.close-btn:hover {
+    color: #ccc;
 }
