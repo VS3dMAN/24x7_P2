@@ -1,0 +1,171 @@
+/* Global Reset & Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #121212; /* Dark, premium background */
+    --text-color: #e0e0e0;
+    --accent-color: #ffffff;
+    --grid-gap: 15px;
+    --border-radius: 8px;
+    --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Header Styles */
+.site-header {
+    padding: 2rem 5%;
+    background: linear-gradient(to bottom, #121212 0%, rgba(18,18,18,0.9) 100%);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.header-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.brand-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent-color);
+    margin-bottom: 0.2rem;
+}
+
+.tagline {
+    font-size: 1rem;
+    font-weight: 300;
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+}
+
+/* Masonry Grid Styles */
+main {
+    padding: 20px 5%;
+    max-width: 1800px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.masonry-grid {
+    column-gap: var(--grid-gap);
+    /* Columns will be set by media queries */
+}
+
+/* Grid Items */
+.grid-item {
+    break-inside: avoid; /* Prevent images from being split across columns */
+    margin-bottom: var(--grid-gap);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+    background-color: #1e1e1e; /* Placeholder color while loading */
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* Suggests interactivity */
+}
+
+.grid-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.3);
+    z-index: 2;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove bottom whitespace */
+    opacity: 0; /* Hidden initially for fade-in */
+    transition: opacity 0.5s ease;
+}
+
+.grid-item img.loaded {
+    opacity: 1;
+}
+
+/* Loader */
+.loader {
+    text-align: center;
+    padding: 2rem;
+    opacity: 0.5;
+    font-size: 0.9rem;
+    display: none; /* Hidden by default, script can toggle if needed */
+}
+
+/* Responsiveness */
+
+/* Desktop (Large) */
+@media (min-width: 1600px) {
+    .masonry-grid {
+        column-count: 6;
+    }
+}
+
+/* Desktop (Standard) - >= 1024px */
+@media (min-width: 1024px) and (max-width: 1599px) {
+    .masonry-grid {
+        column-count: 5;
+    }
+    .header-content {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+/* Tablet - 600px to 1024px */
+@media (min-width: 600px) and (max-width: 1023px) {
+    .masonry-grid {
+        column-count: 3;
+    }
+    .header-content {
+        align-items: flex-start; /* Still keep left align for tablet usually better, user said center mobile */
+    }
+}
+
+/* Mobile - <= 600px */
+@media (max-width: 599px) {
+    .masonry-grid {
+        column-count: 2;
+        column-gap: 10px; /* Slightly smaller gap for mobile */
+    }
+    
+    .grid-item {
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+    .site-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .header-content {
+        align-items: center;
+        text-align: center;
+    }
+
+    .brand-name {
+        font-size: 1.5rem;
+    }
+    
+    .tagline {
+        font-size: 0.9rem;
+    }
+}
